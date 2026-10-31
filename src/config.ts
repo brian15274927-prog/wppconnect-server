@@ -100,6 +100,19 @@ export default {
       '--ignore-certificate-errors',
       '--ignore-ssl-errors',
       '--ignore-certificate-errors-spki-list',
+
+      // Снятый на docker0 трафик показал, что при запуске сессии Chromium сам
+      // обращается к update.googleapis.com, clients2.google.com, gvt1.com и
+      // mtalk.google.com: обновление компонентов, push-канал, отчёты. Браузер
+      // держит живую сессию WhatsApp компании и не должен разговаривать ни с
+      // кем, кроме WhatsApp.
+      '--disable-component-update',
+      '--disable-domain-reliability',
+      '--disable-client-side-phishing-detection',
+      '--disable-breakpad',
+      '--no-pings',
+      '--no-default-browser-check',
+      '--disable-features=OptimizationHints,MediaRouter,Translate,InterestFeedContentSuggestions,CalculateNativeWinOcclusion',
     ],
     // An empty list, unlike null, keeps wa-js from falling back to its three
     // public preview servers: generating a preview sends the link a client was
