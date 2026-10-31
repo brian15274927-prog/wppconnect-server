@@ -101,15 +101,21 @@ export default {
       '--ignore-ssl-errors',
       '--ignore-certificate-errors-spki-list',
     ],
-    /**
-     * Example of configuring the linkPreview generator
-     * If you set this to 'null', it will use global servers; however, you have the option to define your own server
-     * Clone the repository https://github.com/wppconnect-team/wa-js-api-server and host it on your server with ssl
-     *
-     * Configure the attribute as follows:
-     * linkPreviewApiServers: [ 'https://www.yourserver.com/wa-js-api-server' ]
-     */
-    linkPreviewApiServers: null,
+    // An empty list, unlike null, keeps wa-js from falling back to its three
+    // public preview servers: generating a preview sends the link a client was
+    // given to a third party. Previews are then simply absent.
+    // Own server: https://github.com/wppconnect-team/wa-js-api-server
+    linkPreviewApiServers: [],
+
+    // wa-js reports to the Google Analytics property of its own authors from
+    // the page that holds the live WhatsApp session. The library already
+    // defaults this off; set explicitly so an upstream default cannot flip it.
+    disableGoogleAnalytics: true,
+    googleAnalyticsId: null,
+
+    // Startup version check reaches registry.npmjs.org for no operational gain.
+    disableWelcome: true,
+    updatesLog: false,
 
     /**
      * Set specific whatsapp version
