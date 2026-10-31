@@ -67,8 +67,13 @@ export default {
     daysToArchive: 45,
   },
   log: {
-    level: 'silly', // Before open a issue, change level to silly and retry a action
-    logger: ['console', 'file'],
+    // Upstream ships 'silly' for bug reports; on a shared host that writes a
+    // line per WhatsApp event and fills the disk. Raise it only to debug.
+    level: env.LOG_LEVEL || 'info',
+    logger: (env.LOG_OUTPUT || 'console')
+      .split(',')
+      .map((output) => output.trim())
+      .filter(Boolean),
   },
   createOptions: {
     browserArgs: [
